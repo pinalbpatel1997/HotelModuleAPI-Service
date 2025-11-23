@@ -1,0 +1,15 @@
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\bin\Debug\CountryCityStaticData.exe.config
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\bin\Debug\CountryCityStaticData.exe
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\bin\Debug\CountryCityStaticData.pdb
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\obj\Debug\CountryCityStaticData.csproj.AssemblyReference.cache
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\obj\Debug\CountryCityStaticData.Properties.Resources.resources
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\obj\Debug\CountryCityStaticData.csproj.GenerateResource.cache
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\obj\Debug\CountryCityStaticData.csproj.CoreCompileInputs.cache
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\obj\Debug\CountryCityStaticData.exe
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\obj\Debug\CountryCityStaticData.pdb
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\bin\Debug\System.Configuration.ConfigurationManager.dll
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\bin\Debug\System.Configuration.ConfigurationManager.xml
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\obj\Debug\CountryCityStaticData.exe.config
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\obj\Debug\CountryC.C1CCB73E.Up2Date
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\bin\Debug\Newtonsoft.Json.dll
+D:\Pinal Development\Learnings\MRP\HotelModuleAPI\CountryCityStaticData\bin\Debug\Newtonsoft.Json.xml
