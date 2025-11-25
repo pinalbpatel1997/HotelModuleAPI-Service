@@ -1,4 +1,4 @@
----------------------------------------------------------------------------------------
+﻿---------------------------------------------------------------------------------------
 -- 1. CountryCityMaster
 ---------------------------------------------------------------------------------------
 USE [HotelModule]
@@ -209,6 +209,35 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+	-- Check Email     
+	IF EXISTS (SELECT 1 FROM AgentRegistration WITH (NOLOCK) WHERE Email = @Email)    
+	BEGIN 
+	SELECT
+	AgentId = 0,  
+	AgentCode = '',  
+	status = 'Email Already Exists';  
+	RETURN; 
+	-- Stop further execution  
+	END
+	-- Check Phone Number 
+	IF EXISTS (SELECT 1 FROM AgentRegistration WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber)
+	BEGIN 
+	SELECT   
+	AgentId = 0,  
+	AgentCode = '',    
+	status = 'Phone Number Already Exists';  
+	RETURN; 
+	END 
+	-- Check Phone Number 
+	IF EXISTS (SELECT 1 FROM AgentRegistration WITH (NOLOCK) WHERE AdminPhoneNumber = @AdminPhoneNumber)   
+	BEGIN 
+	SELECT   
+	AgentId = 0,   
+	AgentCode = '',   
+	status = 'Admin Phone Number Already Exists';     
+	RETURN;   
+	END
+
     DECLARE @AgentCode NVARCHAR(20);
     DECLARE @NewId INT;
 
@@ -313,3 +342,100 @@ BEGIN
 END
 GO
 ---------------------------------------------------------------------------------------
+ExceptionLogs
+---------------------------------------------------------------------------------------
+CREATE TABLE ExceptionLogs
+(
+    LogId INT IDENTITY(1,1) PRIMARY KEY,
+    Title NVARCHAR(500),
+    Status INT,
+    Details NVARCHAR(MAX),
+    LogDate DATETIME,
+    Source NVARCHAR(500),
+    WebsiteName NVARCHAR(255)
+)
+---------------------------------------------------------------------------------------
+--ExceptionLogs
+---------------------------------------------------------------------------------------
+
+CREATE PROCEDURE ExceptionLog
+(
+    @title NVARCHAR(500),
+    @status INT,
+    @details NVARCHAR(MAX),
+    @datetime DATETIME,
+    @source NVARCHAR(500),
+    @WebsiteName NVARCHAR(255)
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO ExceptionLogs
+    (
+        Title,
+        Status,
+        Details,
+        LogDate,
+        Source,
+        WebsiteName
+    )
+    VALUES
+    (
+        @title,
+        @status,
+        @details,
+        @datetime,
+        @source,
+        @WebsiteName
+    );
+END
+---------------------------------------------------------------------------------------
+--RequestResponseHistory
+---------------------------------------------------------------------------------------
+CREATE TABLE RequestResponseHistory
+(
+    HistoryId INT IDENTITY(1,1) PRIMARY KEY,
+    Title NVARCHAR(255),
+    Request NVARCHAR(MAX),
+    Response NVARCHAR(MAX),
+    Token NVARCHAR(500),
+    AgentID INT,
+    SessionId NVARCHAR(255),
+    CreatedDate DATETIME DEFAULT GETDATE()
+);
+---------------------------------------------------------------------------------------
+--SaveRequestResponse
+---------------------------------------------------------------------------------------
+ALTER PROCEDURE SaveRequestResponse
+(
+    @Title NVARCHAR(255) NULL,
+    @Request NVARCHAR(MAX) NULL,
+    @Response NVARCHAR(MAX) NULL,
+    @token NVARCHAR(500) NULL ,
+    @AgentID INT = 0,
+    @Session NVARCHAR(255) NULL
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO RequestResponseHistory
+    (
+        Title,
+        Request,
+        Response,
+        Token,
+        AgentID,
+        SessionId
+    )
+    VALUES
+    (
+        @Title,
+        @Request,
+        @Response,
+        @token,
+        @AgentID,
+        @Session
+    );
+END

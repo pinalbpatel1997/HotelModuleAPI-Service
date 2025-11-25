@@ -1,0 +1,5 @@
+For Country / city :- https://countriesnow.space/api/v0.1/countries
+
+For Country Code  :- https://countriesnow.space/api/v0.1/countries/codes
+
+

@@ -29,6 +29,7 @@ namespace HotelModuleAPI.Controllers
         [Route("SignUp")]
         public async Task<IActionResult> AgentSignUp([FromForm] RegistrationRequest UserData)
         {
+            _common.saveRequestHistory("SignUp###BeforeHit", UserData);
             if (!ModelState.IsValid)
             {
                 return (BadRequest(ModelState));
@@ -42,6 +43,7 @@ namespace HotelModuleAPI.Controllers
                     if (isvalid != null)
                         return isvalid;
                     var response = await AgentRegistration(UserData);
+                    _common.saveRequestHistory("SignUp###AfterHit", UserData, response);
                     if (response == null)
                         return BadRequest("Registration failed");
                     return Ok(response);
@@ -69,6 +71,7 @@ namespace HotelModuleAPI.Controllers
                 }
                 catch (Exception ex)
                 {
+                    _common.errorLogs(ex);
                     return BadRequest("Invalid JSON format.");
                 }
                 // Validate Required Fields of DTO
@@ -119,15 +122,16 @@ namespace HotelModuleAPI.Controllers
             return null;
 
         }
-        private async Task<object?> AgentRegistration(RegistrationRequest User)
+        private async Task<AgentResponseData> AgentRegistration(RegistrationRequest User)
         {
+            AgentResponseData Response = new AgentResponseData();
             try
             {
-                var Response = await _user.CreateAgentRegistration(User);
+                Response = await _user.CreateAgentRegistration(User);
             }
             catch (Exception ex)
             {
-                return null;
+                _common.errorLogs(ex);
             }
             return Response;
         }

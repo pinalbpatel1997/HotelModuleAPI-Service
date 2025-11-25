@@ -1,4 +1,5 @@
 ﻿using HotelModuleAPI.Interface;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -120,17 +121,25 @@ namespace HotelModuleAPI.Repository
                 return await Task.Run(() => cmd.ExecuteNonQuery());
             }
         }
-        public async Task<int> LogException(Exception exdetails)
+        public int ExecuteNonQuerysync(string spName, SqlParameter[] para)
         {
-            SqlParameter[] para = new SqlParameter[]
+            using (SqlConnection con = new SqlConnection(connectionStr))
             {
-                new SqlParameter("@SourceName","ActivityLinker"),
-                new SqlParameter("@Title", "Error in "+ exdetails.Message),
-                new SqlParameter("@Details", exdetails.ToString()),
-                new SqlParameter("@Source", ""),
-                new SqlParameter("@WebsiteName", "ActivityLinker")
-            };
-            return await ExecuteNonQuery("LogException_B2B", para);
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = spName;
+                cmd.CommandTimeout = 100000;
+
+                foreach (SqlParameter par in para)
+                {
+                    cmd.Parameters.Add(par);
+                }
+
+                cmd.Connection = con;
+                con.Open();
+                return cmd.ExecuteNonQuery();  // Synchronous call
+            }
         }
+
     }
 }

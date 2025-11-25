@@ -10,7 +10,7 @@ namespace HotelModuleAPI.Interface
         Task<DataTable> GetDataTable(String SPName, SqlParameter[] para);
         Task<DataSet> GetDataSet(String SPName, SqlParameter[] para);
         Task<int> ExecuteNonQuery(string spName, SqlParameter[] para);
-        Task<int> LogException(Exception ex);
         DataTable GetDataTableSync(string v, SqlParameter[] para);
+        int ExecuteNonQuerysync(string v, SqlParameter[] para);
     }
 }

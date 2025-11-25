@@ -30,6 +30,7 @@ namespace CountryCityStaticData
             {
                 //LoadCountryCityStaticData();
                 //LoadCountryCodeStaticData();
+                LoadCurrencyStaticData();
             }
             catch (Exception)
             {
@@ -62,6 +63,21 @@ namespace CountryCityStaticData
             }
             catch (Exception ex)
             {
+            }
+        }
+        #endregion
+
+        #region LoadCurrencies
+        private void LoadCurrencyStaticData()
+        {
+            try
+            {
+                _common.getCurrencyAPI();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
         #endregion

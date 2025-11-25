@@ -12,10 +12,12 @@ namespace HotelModuleAPI.Repository
     public class UserRepository : IUser
     {
         private readonly IDBConnection _db;
+        private readonly ICommon _common;
 
-        public UserRepository(IDBConnection db)
+        public UserRepository(IDBConnection db, ICommon common)
         {
             _db = db;
+            _common = common;
         }
         public async Task<AgentResponseData> CreateAgentRegistration(RegistrationRequest UserData)
         {
@@ -27,11 +29,13 @@ namespace HotelModuleAPI.Repository
                 dt = await CreateAgent(User);
                 if (dt != null && dt.Rows.Count > 0)
                 {
+                    int agentId = Convert.ToInt32(dt.Rows[0]["agentId"]);
+                    string agentCode = Convert.ToString(dt.Rows[0]["agentcode"]);
+                    string Message = string.Empty;
+                    Response.Status = false;
                     if (Convert.ToString(dt.Rows[0]["status"]) == "success")
                     {
-                        int agentId = Convert.ToInt32(dt.Rows[0]["agentId"]);
-                        string agentCode = Convert.ToString(dt.Rows[0]["agentcode"]);
-                        string Message = "Agent Created Successfully";
+                        Message = "Agent Created Successfully";
                         UploadResponse fileUpload = await UploadFile(UserData.File, agentCode);
                         if (fileUpload != null)
                         {
@@ -41,11 +45,20 @@ namespace HotelModuleAPI.Repository
                         Response.AgentId = agentId;
                         Response.AgentCode = agentCode;
                         Response.Message = Message;
+                        Response.Status = true;
+                    }
+                    else
+                    {
+                        Message = Convert.ToString(dt.Rows[0]["status"]);
+                        Response.AgentId = agentId;
+                        Response.AgentCode = agentCode;
+                        Response.Message = Message;
                     }
                 }
             }
             catch (Exception ex)
             {
+                _common.errorLogs(ex);
             }
             return Response;
         }
@@ -65,6 +78,7 @@ namespace HotelModuleAPI.Repository
             }
             catch (Exception ex)
             {
+                _common.errorLogs(ex);
             }
         }
 
@@ -104,7 +118,7 @@ namespace HotelModuleAPI.Repository
             }
             catch (Exception ex)
             {
-
+                _common.errorLogs(ex);
                 return null;
             }
         }
@@ -150,6 +164,7 @@ namespace HotelModuleAPI.Repository
             }
             catch (Exception ex)
             {
+                _common.errorLogs(ex);
                 return null;
             }
             return dt;

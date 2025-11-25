@@ -170,6 +170,39 @@ namespace CountryCityStaticData
         }
         #endregion
 
+        #region Currency Static Data
+        internal void getCurrencyAPI()
+        {
+            //try
+            //{
+            //    string apiUrl = ConfigurationManager.AppSettings["ApiBaseUrl"];
+            //    string responseCountry = CallApi(apiUrl + "countries/codes");
+            //    if (!string.IsNullOrEmpty(responseCountry))
+            //    {
+            //        var result = JsonConvert.DeserializeObject<CountryCode>(responseCountry);
+            //        if (result.error == false)
+            //        {
+            //            if (result.data != null)
+            //            {
+            //                for (int i = 0; i < result.data.Count; i++)
+            //                {
+            //                    string CountryName = result.data[i].name;
+            //                    string iso2 = result.data[i].code;
+            //                    string Code = result.data[i].dial_code;
+            //                    AddCountryCodeStaticData(CountryName, iso2, Code);
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    throw;
+            //}
+        }
+        #endregion
 
         #region Common Methods
         public List<T> ConvertJsonToList<T>(string json)
@@ -196,9 +229,7 @@ namespace CountryCityStaticData
             }
             
         }
-
         #endregion
-
 
     }
 }
